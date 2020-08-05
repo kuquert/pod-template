@@ -158,7 +158,7 @@ module Pod
       
       main_podfile = File.read main_app_podfile_path
       main_podfile.gsub!("${NEW_TARGET_GOES_HERE}", "${NEW_TARGET_GOES_HERE}\n" + example_target_template)
-      main_podfile.gsub!("${NEW_POD_GOES_HERE}", ("${NEW_POD_GOES_HERE}\n" + pod_name + "_pod"))
+      main_podfile.gsub!("${NEW_POD_GOES_HERE}", ("${NEW_POD_GOES_HERE}\n  " + pod_name + "_pod"))
 
       File.open(main_app_podfile_path, "w") { |file| file.puts main_podfile }
     end
