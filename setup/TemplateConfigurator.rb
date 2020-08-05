@@ -209,6 +209,10 @@ module Pod
       'Example/Podfile'
     end
 
+    def main_app_podfile_path
+      '../../Podfile'
+    end
+    
     #----------------------------------------#
   end
 end
