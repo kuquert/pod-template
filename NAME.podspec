@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => '', :tag => s.version.to_s } # Used only locally for now
 
   s.ios.deployment_target = '11.0'
-  s.osx.deployment_target = '10.9'
+  # s.osx.deployment_target = '10.9'
   s.swift_versions = '5.0'
   s.source_files = '${POD_NAME}/Classes/**/*'
 end
