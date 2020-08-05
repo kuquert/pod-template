@@ -1,0 +1,15 @@
+# ${NEW_POD_TARGET_GOES_HERE}
+
+############# ${POD_NAME} #############
+def ${POD_NAME}_pod
+  pod '${POD_NAME}', :path => 'DevPods/${POD_NAME}' #, :testspecs => ['Tests']
+end
+
+target '${POD_NAME}_Example' do
+  use_frameworks!
+  project 'DevPods/${POD_NAME}/Example/${POD_NAME}.xcodeproj'
+  
+  ${POD_NAME}_pod
+end
+
+#######################################

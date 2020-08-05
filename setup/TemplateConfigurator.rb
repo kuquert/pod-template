@@ -95,6 +95,12 @@ module Pod
       ensure_carthage_compatibility
       run_pod_install
 
+      include_in_main_podfile = self.ask_with_answers("Would you like to add this module on the MainApp Podfile?", ["Yes", "No"]).to_sym
+
+      if include_in_main_podfile == :yes
+        add_pods_to_main_app_podfile
+      end
+
       @message_bank.farewell_message
     end
 
@@ -144,6 +150,17 @@ module Pod
       end.join("\n    ")
       podfile.gsub!("${INCLUDED_PODS}", podfile_content)
       File.open(podfile_path, "w") { |file| file.puts podfile }
+    end
+
+    def add_pods_to_main_app_podfile
+      example_target_template = File.read pod_target_template_path
+      example_target_template.gsub("${POD_NAME}", pod_name)
+      
+      main_podfile = File.read main_app_podfile_path
+      main_podfile.gsub!("${NEW_POD_TARGET_GOES_HERE}", example_target_template)
+      main_podfile.gsub!("${NEW_POD_GOES_HERE}", pod_name + "_pod") # put back ${NEW_POD_GOES_HERE}
+
+      File.open(main_app_podfile_path, "w") { |file| file.puts main_podfile }
     end
 
     def add_line_to_pch line
@@ -213,6 +230,10 @@ module Pod
       '../../Podfile'
     end
     
+    def pod_target_template_path
+      'POD_TARGET_TEMPLATE'
+    end
+
     #----------------------------------------#
   end
 end
