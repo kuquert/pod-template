@@ -205,7 +205,7 @@ module Pod
     end
 
     def date
-      Time.now.strftime "%m/%d/%Y"
+      Time.now.strftime "%Y-%m-%d"
     end
 
     def podfile_path
