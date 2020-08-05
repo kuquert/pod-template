@@ -93,7 +93,6 @@ module Pod
       customise_prefix
       rename_classes_folder
       ensure_carthage_compatibility
-      delete_git_repo
       run_pod_install
 
       @message_bank.farewell_message
@@ -115,7 +114,7 @@ module Pod
     end
 
     def clean_template_files
-      ["./**/.gitkeep", "configure", "_CONFIGURE.rb", "README.md", "LICENSE", "templates", "setup", "CODE_OF_CONDUCT.md"].each do |asset|
+      ["./**/.gitkeep", ".git", "configure", "_CONFIGURE.rb", "README.md", "LICENSE", "templates", "setup", "CODE_OF_CONDUCT.md"].each do |asset|
         `rm -rf #{asset}`
       end
     end
@@ -176,10 +175,6 @@ module Pod
 
     def rename_classes_folder
       FileUtils.mv "Pod", @pod_name
-    end
-
-    def delete_git_repo   
-      `rm -rf .git`
     end
 
     def validate_user_details
