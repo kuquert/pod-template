@@ -93,6 +93,7 @@ module Pod
       customise_prefix
       rename_classes_folder
       ensure_carthage_compatibility
+      delete_git_repo
       run_pod_install
 
       @message_bank.farewell_message
@@ -175,6 +176,10 @@ module Pod
 
     def rename_classes_folder
       FileUtils.mv "Pod", @pod_name
+    end
+
+    def delete_git_repo   
+      `rm -rf .git`
     end
 
     def validate_user_details
