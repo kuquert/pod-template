@@ -154,11 +154,11 @@ module Pod
 
     def add_pods_to_main_app_podfile
       example_target_template = File.read pod_target_template_path
-      example_target_template.gsub("${POD_NAME}", pod_name)
+      example_target_template.gsub!("${POD_NAME}", pod_name)
       
       main_podfile = File.read main_app_podfile_path
-      main_podfile.gsub!("${NEW_POD_TARGET_GOES_HERE}", example_target_template)
-      main_podfile.gsub!("${NEW_POD_GOES_HERE}", pod_name + "_pod") # put back ${NEW_POD_GOES_HERE}
+      main_podfile.gsub!("${NEW_POD_TARGET_GOES_HERE}", "${NEW_POD_GOES_HERE}\n" + example_target_template)
+      main_podfile.gsub!("${NEW_POD_GOES_HERE}", ("${NEW_POD_GOES_HERE}\n" + pod_name + "_pod")) # put back ${NEW_POD_GOES_HERE}
 
       File.open(main_app_podfile_path, "w") { |file| file.puts main_podfile }
     end
@@ -229,7 +229,7 @@ module Pod
     def main_app_podfile_path
       '../../Podfile'
     end
-    
+
     def pod_target_template_path
       'POD_TARGET_TEMPLATE'
     end
