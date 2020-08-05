@@ -111,9 +111,6 @@ module Pod
       Dir.chdir("Example") do
         system "pod install"
       end
-
-      `git add Example/#{pod_name}.xcodeproj/project.pbxproj`
-      `git commit -m "Initial commit"`
     end
 
     def clean_template_files
