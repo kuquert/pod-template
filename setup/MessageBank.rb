@@ -64,7 +64,7 @@ module Pod
       pod_name = @configurator.pod_name
       puts " We will start you off by opening your MainApp project in Xcode with " + pod_name + "_Example target added"
 
-      run_command "open ../*.xcworkspace"
+      run_command "open ../../*.xcworkspace"
     end
 
 
