@@ -99,6 +99,7 @@ module Pod
 
       if include_in_main_podfile == :yes
         add_pods_to_main_app_podfile
+        run_main_app_pod_install
       end
 
       @message_bank.farewell_message
@@ -115,6 +116,15 @@ module Pod
       puts ""
 
       Dir.chdir("Example") do
+        system "pod install"
+      end
+    end
+
+    def run_main_app_pod_install
+      puts "\nRunning " + "pod install".magenta + " on the MainApp."
+      puts ""
+
+      Dir.chdir("../") do
         system "pod install"
       end
     end
