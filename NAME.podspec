@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.version          = '0.1.0'
   s.summary          = 'A short description of ${POD_NAME}.'
   s.homepage         = 'https://github.com/${USER_NAME}/${POD_NAME}'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
+  s.license          = { :type => 'MIT', :file => 'LICENSE' } # Used only locally for now
   s.author           = { '${USER_NAME}' => '${USER_EMAIL}' }
   s.source           = { :git => '', :tag => s.version.to_s } # Used only locally for now
 
