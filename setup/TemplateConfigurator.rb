@@ -70,25 +70,39 @@ module Pod
     def run
       @message_bank.welcome_message
 
-      quit_xcode = self.ask_with_answers("Do you want to quit Xcode? You should, this makes it all more stable!", ["Yes", "No"]).to_sym
 
-      if quit_xcode == :yes
-          system "osascript -e 'quit app \"Xcode\"'"
-      end
+      # ```
+      # Magic configuration summary:
+      # -----------------
+      # platform :ios
+      # framework :swift
+      # test :xctest
+      # example_app :yes
+      # update_main_app_podfle :yes
+      # -----------------
+      # ```
+      
+      with_magic = self.ask_with_answers("Do you want to use Magic? If No, proceed at you own risk.", ["Yes", "No"]).to_sym
 
-      platform = self.ask_with_answers("What platform do you want to use?", ["iOS", "macOS"]).to_sym
+      case with_magic
+        when :yes
+          ConfigureWithMagic.perform(configurator: self)
 
-      case platform
-        when :macos
-          ConfigureMacOSSwift.perform(configurator: self)
-        when :ios
-          framework = self.ask_with_answers("What language do you want to use?", ["Swift", "ObjC"]).to_sym
-          case framework
-            when :swift
-              ConfigureSwift.perform(configurator: self)
+        when :no
+          platform = self.ask_with_answers("What platform do you want to use?", ["iOS", "macOS"]).to_sym
 
-            when :objc
-              ConfigureIOS.perform(configurator: self)
+          case platform
+            when :macos
+              ConfigureMacOSSwift.perform(configurator: self)
+            when :ios
+              framework = self.ask_with_answers("What language do you want to use?", ["Swift", "ObjC"]).to_sym
+              case framework
+                when :swift
+                  ConfigureSwift.perform(configurator: self)
+
+                when :objc
+                  ConfigureIOS.perform(configurator: self)
+              end
           end
       end
 
@@ -101,7 +115,12 @@ module Pod
       ensure_carthage_compatibility
       run_pod_install
 
-      include_in_main_podfile = self.ask_with_answers("Would you like to add this module on the MainApp Podfile?", ["Yes", "No"]).to_sym
+      case with_magic
+        when :yes
+          include_in_main_podfile = :yes
+        when :no
+          include_in_main_podfile = self.ask_with_answers("Would you like to add this module on the MainApp Podfile?", ["Yes", "No"]).to_sym
+      end
 
       if include_in_main_podfile == :yes
         add_pods_to_main_app_podfile

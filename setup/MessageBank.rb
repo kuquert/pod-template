@@ -56,6 +56,11 @@ module Pod
       end
 
       puts ""
+
+      quit_xcode = self.ask_with_answers("Do you want to quit Xcode? You should, this makes it all more stable!", ["Yes", "No"]).to_sym
+      if quit_xcode == :yes
+          system "osascript -e 'quit app \"Xcode\"'"
+      end
     end
 
     def farewell_message
