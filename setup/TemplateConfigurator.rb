@@ -70,7 +70,7 @@ module Pod
     def run
       @message_bank.welcome_message
 
-      quit_xcode = self.ask_with_answers("Can I quit Xcode for you? This is going to help Xcode find itself after the `pod isntall` on the final step", ["Yes", "No"]).to_sym
+      quit_xcode = self.ask_with_answers("Do you want to quit Xcode? You should, this makes it all more stable!", ["Yes", "No"]).to_sym
 
       if quit_xcode == :yes
           system "osascript -e 'quit app \"Xcode\"'"
