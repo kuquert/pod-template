@@ -155,6 +155,7 @@ module Pod
     def add_pods_to_main_app_podfile
       example_target_template = File.read pod_target_template_path
       example_target_template.gsub!("${POD_NAME}", pod_name)
+      example_target_template.gsub!("${POD_NAME_LOWERCASE}", pod_name.downcase)
       
       main_podfile = File.read main_app_podfile_path
       main_podfile.gsub!("${NEW_TARGET_GOES_HERE}", "${NEW_TARGET_GOES_HERE}\n" + example_target_template)

@@ -1,5 +1,6 @@
 ############# ${POD_NAME} #############
-def ${POD_NAME}_pod
+
+def ${POD_NAME_LOWERCASE}_pod
   pod '${POD_NAME}', :path => 'DevPods/${POD_NAME}' #, :testspecs => ['Tests']
 end
 
@@ -9,4 +10,5 @@ target '${POD_NAME}_Example' do
   
   ${POD_NAME}_pod
 end
+
 #######################################
