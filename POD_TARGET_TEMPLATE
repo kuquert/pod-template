@@ -8,7 +8,7 @@ target '${POD_NAME}_Example' do
   use_frameworks!
   project 'DevPods/${POD_NAME}/Example/${POD_NAME}.xcodeproj'
   
-  ${POD_NAME}_pod
+  ${POD_NAME_LOWERCASE}_pod
 end
 
 #######################################
