@@ -81,8 +81,18 @@ module Pod
       # update_main_app_podfle :yes
       # -----------------
       # ```
-      
       with_magic = self.ask_with_answers("Do you want to use Magic? If No, proceed at you own risk.", ["Yes", "No"]).to_sym
+      
+      case with_magic
+        when :yes
+          quit_xcode = :yes
+        when :no
+          quit_xcode = self.ask_with_answers("Do you want to quit Xcode? You should, this makes it all more stable!", ["Yes", "No"]).to_sym
+      end
+
+      if quit_xcode == :yes
+          system "osascript -e 'quit app \"Xcode\"'"
+      end
 
       case with_magic
         when :yes
